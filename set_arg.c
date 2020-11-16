@@ -12,7 +12,7 @@ int num_of_strings(char *line)
 	for (i = 0; line[i] != '\0'; i++)
 		if (line[i] == ' ')
 			delim_count++;
-	return (delim_count + 1);
+	return (delim_count + 2); /*changed from one*/
 }
 /**
  *set_argv - this function will take the given command line and turn it
@@ -27,25 +27,25 @@ char **set_argv(char *line)
 	int i = 0;
 	int j = 0;
 
-	argv = malloc(sizeof(char*) * num_of_strings(line));
+	argv = malloc(sizeof(char *) * num_of_strings(line));
 	if (argv == NULL)
 		return (NULL);
+
 	next = strtok(line, " ");
-	/*allocate the memory*/
-	argv[i] = (char *)malloc(_strlen(next) + 1);
 	argv[i] = next;
 	while (next != NULL)
 	{
 		next = strtok(NULL, " ");
-                i++;
-		argv[i] = (char *)malloc(_strlen(next) + 1);
-                argv[i] = next;
+		i++;
+		if (next != NULL)
+		{
+			argv[i] = next;
+		}
 	}
-
 	i -= 1;
         for (j = 0; argv[i][j] != '\0'; j++)
                 if (argv[i][j] == '\n')
-                        argv[i][j] = '\0';
+			argv[i][j] = '\0';
 	argv[i + 1] = NULL;
 	return (argv);
 }
