@@ -24,25 +24,28 @@ char **set_argv(char *line)
 {
 	char *next = NULL;
 	char **argv;
-	int lgt = 0, i = 0;
+	int i = 0;
+	int j = 0;
 
-	argv = malloc(sizeof(char *) * num_of_strings(line));
+	argv = malloc(sizeof(char*) * num_of_strings(line));
 	if (argv == NULL)
 		return (NULL);
 	next = strtok(line, " ");
+	/*allocate the memory*/
+	argv[i] = (char *)malloc(_strlen(next) + 1);
+	argv[i] = next;
 	while (next != NULL)
 	{
-		lgt = _strlen(next) + 1;
-		argv[i] = malloc(sizeof(char) * lgt);
-		if (argv[i] == NULL)
-		{
-			/*need to free here*/
-			return (NULL);
-		}
-		_strcpy(argv[i], next);
 		next = strtok(NULL, " ");
+                i++;
+		argv[i] = (char *)malloc(_strlen(next) + 1);
+                argv[i] = next;
 	}
-	printf("%s\n", argv[0]);
-	argv[i] = NULL;
+
+	i -= 1;
+        for (j = 0; argv[i][j] != '\0'; j++)
+                if (argv[i][j] == '\n')
+                        argv[i][j] = '\0';
+	argv[i + 1] = NULL;
 	return (argv);
 }

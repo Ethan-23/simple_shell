@@ -19,6 +19,7 @@ int main(void)
 
 	for (count = 0; argv[count] != '\0'; count++)
                 printf("%s\n", argv[count]);
+	free(argv);
 	free(line);
 	return (0);
 }

@@ -12,5 +12,6 @@
 int _strcmp(char *s1, char *s2);
 int _strlen(char *s);
 char *_strcpy(char *dest, char *src);
+void free_argv(char **argv);
 char **set_argv(char *line);
 #endif
