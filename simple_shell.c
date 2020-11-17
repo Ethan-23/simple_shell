@@ -30,6 +30,8 @@ int main(void)
 			error_check = execve(argv[0], argv, NULL);
 			if (error_check == -1)
 				perror("Error: ");
+			free(argv);
+			free(line);
 			_exit(0);
 		}
 		if (id != 0)
