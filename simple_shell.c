@@ -6,9 +6,10 @@
 int main(void)
 {
 	char *line = NULL, **argv;
-	int num_char_line;
+	int num_char_line, id;
 	size_t buf = 0;
-	int count = 0;
+	/*int count = 0;*/
+	int error_check;
 
 	/*gets line and prints interface*/
 	while (1)
@@ -21,10 +22,21 @@ int main(void)
 		argv = set_argv(line);
 		if (strcmp(argv[0], "exit") == 0)
 			break;
-		for (count = 0; argv[count] != '\0'; count++)
-			printf("%s\n", argv[count]);
+		/*for (count = 0; argv[count] != '\0'; count++)
+		  printf("%s\n", argv[count]);*/
+		id = fork();
+		if (id == 0)
+		{
+			error_check = execve(argv[0], argv, NULL);
+			if (error_check == -1)
+				perror("Error: ");
+			_exit(0);
+		}
+		if (id != 0)
+			wait(NULL);
 		free(argv);
 		free(line);
+		fflush(stdout);
 	}
 	free(argv);
 	free(line);
