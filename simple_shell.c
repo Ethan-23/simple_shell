@@ -1,5 +1,15 @@
 #include "shell.h"
 /**
+ *s_free - this function frees our two allocated strings line and free
+ *@line: the line taken from stdin
+ *@argv: our allocated argument list
+ */
+void s_free(char **argv, char *line)
+{
+	free(argv);
+	free(line);
+}
+/**
  *main - this is the main file for a simple shell
  *Return: returns 0 on completion
  */
@@ -30,17 +40,14 @@ int main(void)
 			error_check = execve(argv[0], argv, NULL);
 			if (error_check == -1)
 				perror("Error: ");
-			free(argv);
-			free(line);
+			s_free(argv, line);
 			_exit(0);
 		}
 		if (id != 0)
 			wait(NULL);
-		free(argv);
-		free(line);
+		s_free(argv, line);
 		fflush(stdout);
 	}
-	free(argv);
-	free(line);
+	s_free(argv, line);
 	return (0);
 }
