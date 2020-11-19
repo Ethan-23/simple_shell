@@ -12,7 +12,9 @@ int num_of_strings(char *line)
 	for (i = 0; line[i] != '\0'; i++)
 		if (line[i] == ' ')
 			delim_count++;
-	return (delim_count + 2); /*changed from one*/
+	/*adds two: one for NULL at end*/
+	/*adds another for the first argument no matter what*/
+	return (delim_count + 2);
 }
 /**
  *set_argv - this function will take the given command line and turn it
@@ -22,30 +24,33 @@ int num_of_strings(char *line)
  */
 char **set_argv(char *line)
 {
+	/*next is the next argument in the line using strtok*/
 	char *next = NULL;
+	/*our argv list*/
 	char **argv;
-	int i = 0;
-	int j = 0;
-
+	/*counter variables*/
+	int i = 0, j = 0;
+	/*mallocs our argv list based on how many args passed to shell*/
 	argv = malloc(sizeof(char *) * num_of_strings(line));
 	if (argv == NULL)
 		return (NULL);
-
+	/*gets the command (first argument in the list)*/
 	next = strtok(line, " ");
 	argv[i] = next;
+	/*finds the rest of the arguments for the list*/
 	while (next != NULL)
 	{
 		next = strtok(NULL, " ");
 		i++;
-		if (next != NULL)
-		{
-			argv[i] = next;
-		}
+		argv[i] = next;
 	}
+	/*goes back to last element before NULL assignemnt*/
 	i -= 1;
-        for (j = 0; argv[i][j] != '\0'; j++)
-                if (argv[i][j] == '\n')
+	/*removes the /n and replaces it with new NULL byte*/
+	for (j = 0; argv[i][j] != '\0'; j++)
+		if (argv[i][j] == '\n')
 			argv[i][j] = '\0';
+	/*goes back to last index of argv and sets it to NULL*/
 	argv[i + 1] = NULL;
 	return (argv);
 }
