@@ -25,7 +25,8 @@ int main(void)
 	while (1)
 	{
 		line = NULL;
-		write(2, "($)", 3);
+		if (isatty(fileno(stdin)))
+			write(2, "($)", 3);
 		num_char_line = getline(&line, &buf, stdin);
 		if (num_char_line == -1)
 			return (-1);
