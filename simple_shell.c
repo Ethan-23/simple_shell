@@ -1,5 +1,13 @@
 #include "shell.h"
 /**
+ *
+ */
+void handler(int a)
+{
+	(void)a;
+	write(2, "\n($)", 4);
+}
+/**
  *print_e - prints current error using perror function
  *@val: the error integer returned by whatever function
  */
@@ -22,13 +30,17 @@ void s_free(char **argv, char *line)
  *main - this is the main file for a simple shell
  *Return: returns 0 on completion
  */
-int main(void)
+int main(int ac, char **av, char **env)
 {
 	char *line = NULL, **argv;
 	int num_char_line, id;
 	size_t buf = 0;
 	int error_check;
+	(void)ac;
+	(void)av;
+	(void)env;
 
+	signal(SIGINT, handler);
 	/*gets line and prints interface*/
 	while (1)
 	{
