@@ -7,15 +7,15 @@
  */
 int _strcmp(char *s1, char *s2)
 {
-        int i = 0;
+	int i = 0;
 
-        while (s1[i] != '\0' && s2[i] != '\0')
-        {
-                if (s1[i] != s2[i])
-                        return (s1[i] - s2[i]);
-                i++;
-        }
-        return (0);
+	while (s1[i] != '\0' && s2[i] != '\0')
+	{
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+		i++;
+	}
+	return (0);
 }
 /**
  *_strcpy - this function copys a string into another string
@@ -25,12 +25,12 @@ int _strcmp(char *s1, char *s2)
  */
 char *_strcpy(char *dest, char *src)
 {
-        int i;
+	int i;
 
-        for (i = 0; src[i] != '\0'; i++)
-                dest[i] = src[i];
-        dest[i] = '\0';
-        return (dest);
+	for (i = 0; src[i] != '\0'; i++)
+		dest[i] = src[i];
+	dest[i] = '\0';
+	return (dest);
 }
 #include "shell.h"
 /**
@@ -40,11 +40,11 @@ char *_strcpy(char *dest, char *src)
  */
 int _strlen(char *s)
 {
-        int i;
+	int i;
 
-        for (i = 0; s[i] != '\0'; i++)
-        {
-        }
+	for (i = 0; s[i] != '\0'; i++)
+	{
+	}
 
-        return (i);
+	return (i);
 }
