@@ -19,4 +19,5 @@ void free_argv(char **argv);
 char **set_argv(char *line);
 char **get_path(char **env);
 void handle_path(char **env, char **argv);
+void print_env(char **env);
 #endif

@@ -69,6 +69,8 @@ int main(int ac, char **av, char **env)
 		argv = set_argv(line);
 		if (strcmp(argv[0], "exit") == 0)
 			break;
+		if (strcmp(argv[0], "env") == 0)
+			print_env(env);
 		id = fork();
 		if (id == -1)
 			print_e(-1);
