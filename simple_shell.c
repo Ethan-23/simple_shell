@@ -62,7 +62,7 @@ int main(int ac, char **av, char **env)
 	{
 		line = NULL;
 		if (isatty(fileno(stdin)))
-			write(2, "($)", 3);
+			write(2, "$ ", 3);
 		num_char_line = getline(&line, &buf, stdin);
 		if (num_char_line == -1)
 			ctrl_d_handler(line);
