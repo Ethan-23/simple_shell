@@ -17,7 +17,7 @@ void ctrl_d_handler(char *line)
 void handler(int a)
 {
 	(void)a;
-	write(2, "\n($)", 4);
+	write(1, "\n$ ", 3);
 }
 /**
  *print_e - prints current error using perror function (if fork fails)
@@ -62,7 +62,7 @@ int main(int ac, char **av, char **env)
 	{
 		line = NULL;
 		if (isatty(fileno(stdin)))
-			write(2, "($)", 3);
+			write(1, "$ ", 2);
 		num_char_line = getline(&line, &buf, stdin);
 		if (num_char_line == -1)
 			ctrl_d_handler(line);

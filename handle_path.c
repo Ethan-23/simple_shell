@@ -42,7 +42,7 @@ void handle_path(char **env, char **argv)
 {
 	int i = 0;
 	char **path;
-	int check;
+	int check = 0;
 
 	path = get_path(env);
 
