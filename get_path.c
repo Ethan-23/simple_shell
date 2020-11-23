@@ -66,7 +66,5 @@ char **get_path(char **env)
 		path[j] = next;
 	}
 	path[j] = NULL;
-
-	/*path[0] = rm_path(path[0]);*/
 	return (path);
 }
