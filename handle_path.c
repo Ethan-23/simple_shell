@@ -38,11 +38,11 @@ char *command_path(char *com, char *path)
  *@env: our environmental variables
  *@argv: our argument lis (exp.(ls -a -b))
  */
-void handle_path(char **env, char **argv)
+void handle_path(char **env, char **argv, int count)
 {
 	int i = 0;
 	char **path;
-	int check = 0;
+	int check;
 
 	path = get_path(env);
 
@@ -61,8 +61,9 @@ void handle_path(char **env, char **argv)
 
 	if (check != 1)
 	{
-		check = execve(argv[0], argv, NULL);
-		perror("Error: ");
+		print_e(argv[0], count);
+/*		check = execve(argv[0], argv, NULL);
+		perror("Error: ");*/
 	}
 	free(path);
 }

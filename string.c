@@ -48,3 +48,60 @@ int _strlen(char *s)
 
 	return (i);
 }
+
+#include "shell.h"
+/**
+ *_strncat - concatenates two strings using at most n bytes
+ *@dest: Destination string
+ *@src: Soruce string
+ *Return: returns the destination string
+ */
+char *_strncat(char *dest, char *src)
+{
+	int length;
+	int i;
+
+	length = _strlen(dest);
+	for (i = 0; src[i] != '\0'; i++)
+	{
+		dest[length] = src[i];
+		length++;
+	}
+	dest[length + i] = '\0';
+	return (dest);
+}
+
+#include "shell.h"
+/**
+ *
+ *
+ */
+char *_strnum(int givnum)
+{
+	char strnum[6], *final;
+	int count = 1, pow = 1, hold, place = 0;
+
+	hold = givnum;
+/* continuously divides given number by 10 to find the length */
+	for (; hold >= 10; count++, hold /= 10, pow *= 10)
+	{}
+/*uses the number counted above to go though each number and divide it by 10 */
+/* to the power it needs to reach the correct ammount of zeros */
+	for (; count >= 1; count--)
+	{
+		if (givnum >= 10)
+		{
+			strnum[place] = givnum / pow + '0';
+			place++;
+			givnum = givnum % pow;
+		}
+		else
+		{
+			strnum[place] = givnum % 10 + '0';
+			place++;
+		}
+	}
+	strnum[place] = '\0';
+	final = strnum;
+	return (final);
+}
