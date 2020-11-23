@@ -1,7 +1,4 @@
 #include "shell.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 /**
  *ctrl_d_handler - handle the EOF built in
  *@line: takes line so we can free it properly
@@ -24,28 +21,16 @@ void handler(int a)
 }
 /**
  *print_e - prints current error using perror function (if fork fails)
- *@name: name of shell
- *@input: command input
- *@count: count of how many commands have been entered
+ *@val: the error integer returned by whatever function
  */
-void print_e(char *input, int count)
+void print_e(int val)
 {
-	char *buf;
-	char delim[3] = ": ",name[6] = "./hsh", er[11] = "not found";
-	int lgt = _strlen(_strnum(count));
-
-	buf = malloc((lgt + _strlen(input) + 21) * sizeof(char));
-	_strcpy(buf, name);
-	_strncat(buf, delim);
-	_strncat(buf, _strnum(count));
-	_strncat(buf, delim);
-	_strncat(buf, input);
-	_strncat(buf, delim);
-	_strncat(buf, er);
-	write(STDERR_FILENO, buf, _strlen(buf));
-	_putchar('\n');
-	fflush(stdout);
-	free(buf);
+	if (val == -1)
+	{
+		perror("error: ");
+		/*exit entire program with failure*/
+		exit(1);
+	}
 }
 /**
  *s_free - this function frees our two allocated strings line and free
@@ -67,16 +52,14 @@ void s_free(char **argv, char *line)
 int main(int ac, char **av, char **env)
 {
 	char *line = NULL, **argv;
-	int num_char_line, id, count = 0;
+	int num_char_line, id;
 	size_t buf = 0;
 	(void)ac;
 	(void)av;
 
-	count++;
 	signal(SIGINT, handler);
 	while (1)
 	{
-		count ++;
 		line = NULL;
 		if (isatty(fileno(stdin)))
 			write(1, "$ ", 2);
@@ -89,14 +72,14 @@ int main(int ac, char **av, char **env)
 		if (strcmp(argv[0], "env") == 0)
 			print_env(env);
 		id = fork();
-/*		if (id == -1)
-		print_e(line, count);*/
+		if (id == -1)
+			print_e(-1);
 		if (id == 0)
 		{
 			if (access(argv[0], F_OK) == 0)
 				execve(argv[0], argv, NULL);
 			else
-				handle_path(env, argv, count);
+				handle_path(env, argv);
 			s_free(argv, line);
 			_exit(0);
 		}

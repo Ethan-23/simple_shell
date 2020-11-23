@@ -12,15 +12,12 @@
 #include <sys/wait.h>
 #include <signal.h>
 int _putchar(char c);
-char *_strnum(int num);
 int _strcmp(char *s1, char *s2);
 int _strlen(char *s);
 char *_strcpy(char *dest, char *src);
 void free_argv(char **argv);
 char **set_argv(char *line);
 char **get_path(char **env);
-void handle_path(char **env, char **argv, int count);
+void handle_path(char **env, char **argv);
 void print_env(char **env);
-char *_strncat(char *dest, char *src);
-void print_e(char *input, int count);
 #endif
