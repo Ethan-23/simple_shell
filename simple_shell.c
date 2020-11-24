@@ -49,11 +49,16 @@ void print_e(char *input, int count)
  *@line: the line taken from stdin
  *@argv: our allocated argument list
  */
-void s_free(char **argv, char *line, char *true_path)
+void s_free(char **argv, char **path, char *line, char *true_path)
 {
-	free(true_path);
-	free(argv);
-	free(line);
+	if (true_path != NULL)
+		free(true_path);
+	if (argv != NULL)
+		free(argv);
+	if (line != NULL)
+		free(line);
+	if (path != NULL)
+		free(path);
 }
 /**
  *main - this is the main file for a simple shell
@@ -106,18 +111,16 @@ int main(int ac, char **av, char **env)
 			{
 				/*if execve fails beacuse a command isnt found*/
 				print_e(argv[0], count);
-				s_free(argv, line, true_path);
-				free(path);
+				s_free(argv, path, line, true_path);
 				_exit(0); /*exits the proccess*/
 			}
 		}
 		/*waits for child and frees memory for next loop*/
 		if (id != 0)
 			wait(NULL);
-		s_free(argv, line, true_path);
+		s_free(argv, NULL, line, true_path);
 		fflush(stdout);
 	}
-	free(path);
-	s_free(argv, line);
+	s_free(argv, path, line, NULL);
 	return (0);
 }
