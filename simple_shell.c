@@ -1,21 +1,5 @@
 #include "shell.h"
 /**
- *ctrl_d_handler - handle the EOF built in
- *@line: takes line so we can free it properly
- */
-void ctrl_d_handler(char *line, char **path, int error)
-{
-	if (isatty(STDIN_FILENO) != 0)
-		_putchar('\n');
-	free(path[0]);
-	free(path);
-	free(line);
-	if (error == 2)
-		exit(2);
-	else
-		exit(0);
-}
-/**
  *handler - handles out signal for ctrl + c
  *@a: our signal holder value
  */
@@ -34,10 +18,10 @@ int print_e(char *input, int count)
 {
 	char *buf;
 	char *num = _strnum(count);
-	char delim[3] = ": ", name[6] = "./hsh", er[11] = "not found";
+	char delim[3] = ": ", name[6] = "./hsh", er[11] = "not found\n";
 	int lgt =_strlen(num);
 /*makes space with malloc for a string to print errors*/
-	buf = malloc((lgt + _strlen(input) + 22) * sizeof(char));
+	buf = malloc((lgt + _strlen(input) + 23) * sizeof(char));
 	_strcpy(buf, name);
 	_strncat(buf, delim);
 	_strncat(buf, num);
@@ -46,7 +30,6 @@ int print_e(char *input, int count)
 	_strncat(buf, delim);
 	_strncat(buf, er);
 	write(STDERR_FILENO, buf, _strlen(buf));
-	_putchar('\n');
 	fflush(stdout);
 	free(buf);
 	free(num);
