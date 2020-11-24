@@ -5,7 +5,7 @@
  */
 void ctrl_d_handler(char *line, char **path)
 {
-	if (isatty(fileno(stdin)))
+	if (isatty(STDIN_FILENO) != 0)
 		_putchar('\n');
 	free(path);
 	free(line);
@@ -86,7 +86,7 @@ int main(int ac, char **av, char **env)
 		buf = 0;
 		line = NULL;
 		/*prints out $ / gets line*/
-		if (isatty(fileno(stdin)))
+		if (isatty(STDIN_FILENO) != 0)
 			write(1, "$ ", 2);
 		num_char_line = getline(&line, &buf, stdin);
 		if (num_char_line == -1)
