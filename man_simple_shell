@@ -1,0 +1,24 @@
+.\" Manpage for simple_shell.
+.\" Contact 1791@holbertonschool.com to correct errors or typos.
+.TH man 3 "23 November 2020" "0.32" "User Command Page"
+.SH NAME
+.B simple_shell
+- Produces output according to a format.
+.SH SYNOPSIS
+.nf
+.B #include "shell.h"
+.B ./hsh;
+.SH DESCRIPTION
+Super simple version of shell meant to handle simple commands and built in commands env and exit. The shell also can search through the PATH to find executables.
+.SH Built-ins
+.nf
+.B exit
+exits the shell
+.B env
+prints the enviroment
+.SH EXAMPLES
+.nf
+.SH BUGS
+Contact 1791@holbertonschool.com to correct errors or typos.
+.SH AUTHOR
+Manny Figueroa and Ethan Roberts.
