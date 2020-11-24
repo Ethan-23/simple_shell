@@ -57,17 +57,17 @@ int _strlen(char *s)
  */
 char *_strncat(char *dest, char *src)
 {
-        int length;
-        int i;
+	int length;
+	int i;
 
-        length = _strlen(dest);
-        for (i = 0; src[i] != '\0'; i++)
-        {
-                dest[length] = src[i];
-                length++;
-        }
-        dest[length] = '\0';
-        return (dest);
+	length = _strlen(dest);
+	for (i = 0; src[i] != '\0'; i++)
+	{
+		dest[length] = src[i];
+		length++;
+	}
+	dest[length] = '\0';
+	return (dest);
 }
 #include "shell.h"
 /**
@@ -77,28 +77,28 @@ char *_strncat(char *dest, char *src)
  */
 char *_strnum(int givnum)
 {
-        char *strnum, *final;
-        int count = 1, pow = 1, hold, place = 0;
+	char *strnum, *final;
+	int count = 1, pow = 1, hold, place = 0;
 
-        hold = givnum;
-        for (; hold >= 10; count++, hold /= 10, pow *= 10)
-        {}
-        strnum = malloc((count + 1) * sizeof(int));
-        for (; count >= 1; count--)
-        {
-                if (givnum >= 10)
-                {
-                        strnum[place] = givnum / pow + '0';
-                        place++;
-                        givnum = givnum % pow;
-                }
-                else
-                {
-                        strnum[place] = givnum % 10 + '0';
-                        place++;
-                }
-        }
-        strnum[place] = '\0';
-        final = strnum;
-        return (final);
+	hold = givnum;
+	for (; hold >= 10; count++, hold /= 10, pow *= 10)
+	{}
+	strnum = malloc((count + 1) * sizeof(int));
+	for (; count >= 1; count--)
+	{
+		if (givnum >= 10)
+		{
+			strnum[place] = givnum / pow + '0';
+			place++;
+			givnum = givnum % pow;
+		}
+		else
+		{
+			strnum[place] = givnum % 10 + '0';
+			place++;
+		}
+	}
+	strnum[place] = '\0';
+	final = strnum;
+	return (final);
 }

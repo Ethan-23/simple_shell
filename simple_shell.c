@@ -27,22 +27,22 @@ void handler(int a)
  */
 void print_e(char *input, int count)
 {
-        char *buf;
-        char delim[3] = ": ", name[6] = "./hsh", er[11] = "not found";
-        int lgt = _strlen(_strnum(count));
-
-        buf = malloc((lgt + _strlen(input) + 22) * sizeof(char));
-        _strcpy(buf, name);
-        _strncat(buf, delim);
-        _strncat(buf, _strnum(count));
-        _strncat(buf, delim);
-        _strncat(buf, input);
-        _strncat(buf, delim);
-        _strncat(buf, er);
-        write(STDERR_FILENO, buf, _strlen(buf));
-        _putchar('\n');
-        fflush(stdout);
-        free(buf);
+	char *buf;
+	char delim[3] = ": ", name[6] = "./hsh", er[11] = "not found";
+	int lgt = _strlen(_strnum(count));
+/*makes space with malloc for a string to print errors*/
+	buf = malloc((lgt + _strlen(input) + 22) * sizeof(char));
+	_strcpy(buf, name);
+	_strncat(buf, delim);
+	_strncat(buf, _strnum(count));
+	_strncat(buf, delim);
+	_strncat(buf, input);
+	_strncat(buf, delim);
+	_strncat(buf, er);
+	write(STDERR_FILENO, buf, _strlen(buf));
+	_putchar('\n');
+	fflush(stdout);
+	free(buf);
 }
 /**
  *s_free - this function frees our two allocated strings line and free
@@ -96,7 +96,7 @@ int main(int ac, char **av, char **env)
 				execve(true_path, argv, NULL);
 			else
 			{
-				print_e(argv[0] ,count);
+				print_e(argv[0], count);
 				free(true_path);
 				free(path);
 				s_free(argv, line);
