@@ -99,7 +99,11 @@ int main(int ac, char **av, char **env)
 		argv = set_argv(line);
 		/*checks for built ins*/
 		if (_strcmp(argv[0], "exit") == 0)
-			break;
+		{
+			s_free(argv, path, line, NULL);
+			/*break;*/
+			exit(EXIT_SUCCESS);
+		}
 		if (_strcmp(argv[0], "env") == 0)
 			print_env(env);
 		/*gets path with command appened to end of each directory*/
