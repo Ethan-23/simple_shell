@@ -33,7 +33,7 @@ int print_e(char *input, int count)
 	fflush(stdout);
 	free(buf);
 	free(num);
-	return (2);
+	return (127);
 }
 /**
  *s_free - this function frees our two allocated strings line and free
@@ -87,6 +87,8 @@ int main(int ac, char **av, char **env)
 		if (_strcmp(argv[0], "exit") == 0)
 		{
 			s_free(argv, path, line, NULL);
+			if (error == 127)
+				exit(2);
 			exit(EXIT_SUCCESS);
 		}
 		if (_strcmp(argv[0], "env") == 0)

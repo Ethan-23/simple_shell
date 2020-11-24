@@ -10,8 +10,8 @@ void ctrl_d_handler(char *line, char **path, int error)
         free(path[0]);
         free(path);
         free(line);
-        if (error == 2)
-                exit(2);
+        if (error == 127)
+                exit(error);
         else
                 exit(0);
 }
