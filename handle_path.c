@@ -53,11 +53,12 @@ void *handle_path(char **path, char **argv)
 	}
 	for (j = 0; path[j] != '\0'; j++)
                 lgt++;
-        copy = malloc((lgt + 1) * sizeof(char*));
+        copy = malloc((lgt + 1) * sizeof(char *));
         if (copy == NULL)
                 return (NULL);
         for (j = 0; path[j] != '\0'; j++)
                 copy[j] = path[j];
+	copy[j] = NULL;
 	for (i = 0; copy[i] != '\0'; i++)
 	{
 		copy[i] = command_path(argv[0], copy[i]);
