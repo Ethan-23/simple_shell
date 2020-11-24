@@ -51,15 +51,17 @@ void s_free(char **argv, char *line)
  */
 int main(int ac, char **av, char **env)
 {
-	char *line = NULL, **argv;
+	char *line = NULL, *true_path, **path, **argv;
 	int num_char_line, id;
 	size_t buf = 0;
 	(void)ac;
 	(void)av;
 
 	signal(SIGINT, handler);
+	path = get_path(env);
 	while (1)
 	{
+		buf = 0;
 		line = NULL;
 		if (isatty(fileno(stdin)))
 			write(1, "$ ", 2);
@@ -71,23 +73,30 @@ int main(int ac, char **av, char **env)
 			break;
 		if (strcmp(argv[0], "env") == 0)
 			print_env(env);
+		true_path = handle_path(path, argv);
 		id = fork();
 		if (id == -1)
 			print_e(-1);
 		if (id == 0)
 		{
-			if (access(argv[0], F_OK) == 0)
-				execve(argv[0], argv, NULL);
+			if (true_path != NULL)
+				execve(true_path, argv, NULL);
 			else
-				handle_path(env, argv);
-			s_free(argv, line);
-			_exit(0);
+			{
+				printf("doesnt exist: %s\n", true_path);
+				free(true_path);
+				free(path);
+				s_free(argv, line);
+				_exit(0);
+			}
 		}
 		if (id != 0)
 			wait(NULL);
+		free(true_path);
 		s_free(argv, line);
 		fflush(stdout);
 	}
+	free(path);
 	s_free(argv, line);
 	return (0);
 }
