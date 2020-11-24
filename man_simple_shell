@@ -17,6 +17,9 @@ exits the shell
 .B env
 prints the enviroment
 .SH EXAMPLES
+.B Interactive mode - echo \"env\" | ./hsh
+
+.B Non interactive mode - $ env
 .nf
 .SH BUGS
 Contact 1791@holbertonschool.com to correct errors or typos.
