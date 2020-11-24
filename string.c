@@ -86,11 +86,12 @@ char *_strnum(int givnum)
 	strnum = malloc((count + 1) * sizeof(int));
 	for (; count >= 1; count--)
 	{
-		if (givnum >= 10)
+		if (count > 1)
 		{
 			strnum[place] = givnum / pow + '0';
 			place++;
 			givnum = givnum % pow;
+			pow = pow / 10;
 		}
 		else
 		{
