@@ -21,16 +21,28 @@ void handler(int a)
 }
 /**
  *print_e - prints current error using perror function (if fork fails)
- *@val: the error integer returned by whatever function
+ *@name: name of shell
+ *@input: command input
+ *@count: count of how many commands have been entered
  */
-void print_e(int val)
+void print_e(char *input, int count)
 {
-	if (val == -1)
-	{
-		perror("error: ");
-		/*exit entire program with failure*/
-		exit(1);
-	}
+        char *buf;
+        char delim[3] = ": ", name[6] = "./hsh", er[11] = "not found";
+        int lgt = _strlen(_strnum(count));
+
+        buf = malloc((lgt + _strlen(input) + 22) * sizeof(char));
+        _strcpy(buf, name);
+        _strncat(buf, delim);
+        _strncat(buf, _strnum(count));
+        _strncat(buf, delim);
+        _strncat(buf, input);
+        _strncat(buf, delim);
+        _strncat(buf, er);
+        write(STDERR_FILENO, buf, _strlen(buf));
+        _putchar('\n');
+        fflush(stdout);
+        free(buf);
 }
 /**
  *s_free - this function frees our two allocated strings line and free
@@ -52,7 +64,7 @@ void s_free(char **argv, char *line)
 int main(int ac, char **av, char **env)
 {
 	char *line = NULL, *true_path, **path, **argv;
-	int num_char_line, id;
+	int num_char_line, id, count = 0;
 	size_t buf = 0;
 	(void)ac;
 	(void)av;
@@ -61,6 +73,7 @@ int main(int ac, char **av, char **env)
 	path = get_path(env);
 	while (1)
 	{
+		count++;
 		buf = 0;
 		line = NULL;
 		if (isatty(fileno(stdin)))
@@ -76,14 +89,14 @@ int main(int ac, char **av, char **env)
 		true_path = handle_path(path, argv);
 		id = fork();
 		if (id == -1)
-			print_e(-1);
+			print_e(line, count);
 		if (id == 0)
 		{
 			if (true_path != NULL)
 				execve(true_path, argv, NULL);
 			else
 			{
-				printf("doesnt exist: %s\n", true_path);
+				print_e(argv[0] ,count);
 				free(true_path);
 				free(path);
 				s_free(argv, line);
