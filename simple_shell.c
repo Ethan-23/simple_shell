@@ -93,7 +93,7 @@ int main(int ac, char **av, char **env)
 		count++;
 		buf = 0;
 		line = NULL;
-		/*prints out $ / gets line*/
+		/*gets line and stuff*/
 		if (isatty(STDIN_FILENO) != 0)
 			write(1, "$ ", 2);
 		num_char_line = getline(&line, &buf, stdin);
@@ -101,11 +101,9 @@ int main(int ac, char **av, char **env)
 			ctrl_d_handler(line, path, error);
 		/*sets our command argument list*/
 		argv = set_argv(line);
-		/*checks for built ins*/
 		if (_strcmp(argv[0], "exit") == 0)
 		{
 			s_free(argv, path, line, NULL);
-			/*break;*/
 			exit(EXIT_SUCCESS);
 		}
 		if (_strcmp(argv[0], "env") == 0)
@@ -120,22 +118,13 @@ int main(int ac, char **av, char **env)
 		if (id == -1)
 			print_e(line, count);
 		if (id == 0)
-		{
-			/*if (true_path != NULL)*/
-				execve(true_path, argv, NULL);
-			/*else
-			{
-				error = print_e(argv[0], count);
-				s_free(argv, path, line, true_path);
-				_exit(0);
-			}*/
-		}
+			execve(true_path, argv, NULL);
 		/*waits for child and frees memory for next loop*/
 		if (id != 0)
 			wait(NULL);
 		s_free(argv, NULL, line, true_path);
 		fflush(stdout);
 	}
-	s_free(argv, path, line, NULL); /*path was second*/
+	s_free(argv, path, line, NULL);
 	return (0);
 }
