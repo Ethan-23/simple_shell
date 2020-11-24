@@ -12,10 +12,8 @@ char *command_path(char *com, char *path)
 	char *new = NULL;
 	int i = 0, j = 0;
 
-	while (com[lgt2] != '\0')
-		lgt2++;
-	while (path[lgt] != '\0')
-		lgt++;
+	lgt2 = _strlen(com);
+	lgt = _strlen(path);
 	max = lgt + lgt2 + 2;
 	new = malloc(max * sizeof(char));
 	if (new == NULL)
