@@ -12,3 +12,6 @@ Once compiled you can use the command below to get into the shell
 Once inside the shell here are some of the built-in commands you can run
 * exit - Exits from the shell
 * env - Shows the enviroment of the shell
+
+**Created By:**
+Ethan Roberts and Manny Figueroa
