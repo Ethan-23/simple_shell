@@ -38,7 +38,7 @@ char *rm_path(char *path_zero)
 char **get_path(char **env)
 {
 	char **path;
-	char *next = NULL;
+	char *next = NULL, *hold_path = NULL;
 	int i = 0, j = 0, hold = 0;
 
 	for (i = 0; env[i] != '\0'; i++)
@@ -50,11 +50,16 @@ char **get_path(char **env)
 			break;
 		}
 	}
+
+	hold_path = malloc(sizeof(char) * (_strlen(env[hold]) + 1));
+	if (hold_path == NULL)
+		return (NULL);
+	strcpy(hold_path, env[hold]);
 	path = malloc(sizeof(char *) * num_of_s(env[hold]));
 	if (path == NULL)
 		return (NULL);
 
-	next = strtok(env[hold], ":");
+	next = strtok(hold_path, ":");
 	path[j] = rm_path(next);
 	while (next != NULL)
 	{

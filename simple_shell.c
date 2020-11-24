@@ -61,7 +61,10 @@ void s_free(char **argv, char **path, char *line, char *true_path)
 	if (line != NULL)
 		free(line);
 	if (path != NULL)
+	{
+		free(path[0]);
 		free(path);
+	}
 }
 /**
  *main - this is the main file for a simple shell
@@ -124,6 +127,6 @@ int main(int ac, char **av, char **env)
 		s_free(argv, NULL, line, true_path);
 		fflush(stdout);
 	}
-	s_free(argv, path, line, NULL);
+	s_free(argv, path, line, NULL); /*path was second*/
 	return (0);
 }
