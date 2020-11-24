@@ -13,5 +13,9 @@ gcc -Wall -Werror -Wextra -pedantic *.c -o shell
 * exit - Exits from the shell
 * env - Shows the enviroment of the shell
 
+### Modes
+There is interacive mode which pipes commands into our shell (EX. echo "env" | ./hsh)
+There is also non interactive mode which just runs commands in our shell (EX. $ env)
+
 **Created By:**
 Ethan Roberts and Manny Figueroa
