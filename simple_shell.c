@@ -7,6 +7,7 @@ void ctrl_d_handler(char *line, char **path)
 {
 	if (isatty(STDIN_FILENO) != 0)
 		_putchar('\n');
+	free(path[0]);
 	free(path);
 	free(line);
 	exit(0);
