@@ -54,7 +54,7 @@ char **get_path(char **env)
 	hold_path = malloc(sizeof(char) * (_strlen(env[hold]) + 1));
 	if (hold_path == NULL)
 		return (NULL);
-	strcpy(hold_path, env[hold]);
+	_strcpy(hold_path, env[hold]);
 	path = malloc(sizeof(char *) * num_of_s(env[hold]));
 	if (path == NULL)
 		return (NULL);
