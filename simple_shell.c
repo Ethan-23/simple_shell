@@ -94,9 +94,9 @@ int main(int ac, char **av, char **env)
 		/*sets our command argument list*/
 		argv = set_argv(line);
 		/*checks for built ins*/
-		if (strcmp(argv[0], "exit") == 0)
+		if (_strcmp(argv[0], "exit") == 0)
 			break;
-		if (strcmp(argv[0], "env") == 0)
+		if (_strcmp(argv[0], "env") == 0)
 			print_env(env);
 		/*gets path with command appened to end of each directory*/
 		true_path = handle_path(path, argv);
@@ -124,6 +124,6 @@ int main(int ac, char **av, char **env)
 		s_free(argv, NULL, line, true_path);
 		fflush(stdout);
 	}
-	s_free(argv, path, line, true_path);
+	s_free(argv, path, line, NULL);
 	return (0);
 }
