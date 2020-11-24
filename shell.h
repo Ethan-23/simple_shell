@@ -23,4 +23,5 @@ void print_env(char **env);
 char *_strncat(char *dest, char *src);
 int print_e(char *input, int count);
 char *_strnum(int num);
+void ctrl_d_handler(char *line, char **path, int error);
 #endif
