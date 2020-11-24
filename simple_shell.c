@@ -3,14 +3,17 @@
  *ctrl_d_handler - handle the EOF built in
  *@line: takes line so we can free it properly
  */
-void ctrl_d_handler(char *line, char **path)
+void ctrl_d_handler(char *line, char **path, int error)
 {
 	if (isatty(STDIN_FILENO) != 0)
 		_putchar('\n');
 	free(path[0]);
 	free(path);
 	free(line);
-	exit(0);
+	if (error == 2)
+		exit(2);
+	else
+		exit(0);
 }
 /**
  *handler - handles out signal for ctrl + c
@@ -27,7 +30,7 @@ void handler(int a)
  *@input: command input
  *@count: count of how many commands have been entered
  */
-void print_e(char *input, int count)
+int print_e(char *input, int count)
 {
 	char *buf;
 	char *num = _strnum(count);
@@ -47,6 +50,7 @@ void print_e(char *input, int count)
 	fflush(stdout);
 	free(buf);
 	free(num);
+	return (2);
 }
 /**
  *s_free - this function frees our two allocated strings line and free
@@ -77,7 +81,7 @@ void s_free(char **argv, char **path, char *line, char *true_path)
 int main(int ac, char **av, char **env)
 {
 	char *line = NULL, *true_path, **path, **argv;
-	int num_char_line, id, count = 0;
+	int num_char_line, id = 1, count = 0, error = 0;
 	size_t buf = 0;
 	(void)ac;
 	(void)av;
@@ -94,7 +98,7 @@ int main(int ac, char **av, char **env)
 			write(1, "$ ", 2);
 		num_char_line = getline(&line, &buf, stdin);
 		if (num_char_line == -1)
-			ctrl_d_handler(line, path);
+			ctrl_d_handler(line, path, error);
 		/*sets our command argument list*/
 		argv = set_argv(line);
 		/*checks for built ins*/
@@ -109,22 +113,22 @@ int main(int ac, char **av, char **env)
 		/*gets path with command appened to end of each directory*/
 		true_path = handle_path(path, argv);
 		/*forks the main proccess*/
-		id = fork();
+		if (true_path != NULL)
+			id = fork();
+		else
+			error = print_e(argv[0], count);
 		if (id == -1)
 			print_e(line, count);
 		if (id == 0)
 		{
-			/*checks true_path contains a working directory*/
-			if (true_path != NULL)
-				/*exectues command if true_path is not working*/
+			/*if (true_path != NULL)*/
 				execve(true_path, argv, NULL);
-			else
+			/*else
 			{
-				/*if execve fails beacuse a command isnt found*/
-				print_e(argv[0], count);
+				error = print_e(argv[0], count);
 				s_free(argv, path, line, true_path);
-				_exit(0); /*exits the proccess*/
-			}
+				_exit(0);
+			}*/
 		}
 		/*waits for child and frees memory for next loop*/
 		if (id != 0)
