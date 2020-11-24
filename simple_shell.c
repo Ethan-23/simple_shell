@@ -3,10 +3,11 @@
  *ctrl_d_handler - handle the EOF built in
  *@line: takes line so we can free it properly
  */
-void ctrl_d_handler(char *line)
+void ctrl_d_handler(char *line, char **path)
 {
 	if (isatty(fileno(stdin)))
 		_putchar('\n');
+	free(path);
 	free(line);
 	exit(0);
 }
@@ -89,7 +90,7 @@ int main(int ac, char **av, char **env)
 			write(1, "$ ", 2);
 		num_char_line = getline(&line, &buf, stdin);
 		if (num_char_line == -1)
-			ctrl_d_handler(line);
+			ctrl_d_handler(line, path);
 		/*sets our command argument list*/
 		argv = set_argv(line);
 		/*checks for built ins*/
@@ -123,6 +124,6 @@ int main(int ac, char **av, char **env)
 		s_free(argv, NULL, line, true_path);
 		fflush(stdout);
 	}
-	s_free(argv, path, line, NULL);
+	s_free(argv, path, line, true_path);
 	return (0);
 }
