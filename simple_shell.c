@@ -28,13 +28,14 @@ void handler(int a)
 void print_e(char *input, int count)
 {
 	char *buf;
+	char *num = _strnum(count);
 	char delim[3] = ": ", name[6] = "./hsh", er[11] = "not found";
-	int lgt = _strlen(_strnum(count));
+	int lgt =_strlen(num);
 /*makes space with malloc for a string to print errors*/
 	buf = malloc((lgt + _strlen(input) + 22) * sizeof(char));
 	_strcpy(buf, name);
 	_strncat(buf, delim);
-	_strncat(buf, _strnum(count));
+	_strncat(buf, num);
 	_strncat(buf, delim);
 	_strncat(buf, input);
 	_strncat(buf, delim);
@@ -43,6 +44,7 @@ void print_e(char *input, int count)
 	_putchar('\n');
 	fflush(stdout);
 	free(buf);
+	free(num);
 }
 /**
  *s_free - this function frees our two allocated strings line and free
