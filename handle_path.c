@@ -38,31 +38,41 @@ char *command_path(char *com, char *path)
  *@env: our environmental variables
  *@argv: our argument lis (exp.(ls -a -b))
  */
-void handle_path(char **env, char **argv)
+void *handle_path(char **path, char **argv)
 {
-	int i = 0;
-	char **path;
-	int check = 0;
+	int i = 0, j = 0, lgt = 0;
+	char *true_p, **copy;
 
-	path = get_path(env);
-
-	for (i = 0; path[i] != '\0'; i++)
+	if (access(argv[0], F_OK) == 0)
 	{
-		path[i] = command_path(argv[0], path[i]);
-		if ((access(path[i], F_OK)) == 0)
+		true_p = malloc((_strlen(argv[0]) + 1) * sizeof(char));
+		if (true_p == NULL)
+			return (NULL);
+		_strcpy(true_p, argv[0]);
+		return (true_p);
+	}
+	for (j = 0; path[j] != '\0'; j++)
+                lgt++;
+        copy = malloc((lgt + 1) * sizeof(char*));
+        if (copy == NULL)
+                return (NULL);
+        for (j = 0; path[j] != '\0'; j++)
+                copy[j] = path[j];
+	for (i = 0; copy[i] != '\0'; i++)
+	{
+		copy[i] = command_path(argv[0], copy[i]);
+		if ((access(copy[i], F_OK)) == 0)
 		{
-			execve(path[i], argv, NULL);
-			check = 1;
-			free(path[i]);
-			break;
+			true_p = malloc((_strlen(copy[i]) + 1) * sizeof(char));
+			if (true_p == NULL)
+				return (NULL);
+			_strcpy(true_p, copy[i]);
+			free(copy[i]);
+			free(copy);
+			return (true_p);
 		}
-		free(path[i]);
+		free(copy[i]);
 	}
-
-	if (check != 1)
-	{
-		check = execve(argv[0], argv, NULL);
-		perror("Error: ");
-	}
-	free(path);
+	free(copy);
+	return (NULL);
 }

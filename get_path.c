@@ -6,14 +6,11 @@
  */
 int num_of_s(char *line)
 {
-	size_t i = 0;
+	int i = 0;
 	int delim_count = 0;
-
 	for (i = 0; line[i] != '\0'; i++)
 		if (line[i] == ':')
 			delim_count++;
-/*adds two: one for NULL at end*/
-/*adds another for the first argument no matter what*/
 	return (delim_count + 2);
 }
 /**
@@ -53,7 +50,7 @@ char **get_path(char **env)
 			break;
 		}
 	}
-	path = malloc(sizeof(char *) * num_of_s(env[i]));
+	path = malloc(sizeof(char *) * num_of_s(env[hold]));
 	if (path == NULL)
 		return (NULL);
 
@@ -66,7 +63,5 @@ char **get_path(char **env)
 		path[j] = next;
 	}
 	path[j] = NULL;
-
-	/*path[0] = rm_path(path[0]);*/
 	return (path);
 }

@@ -30,6 +30,8 @@ char **set_argv(char *line)
 	char **argv;
 	/*counter variables*/
 	int i = 0, j = 0;
+	if (line == NULL)
+		return (NULL);
 	/*mallocs our argv list based on how many args passed to shell*/
 	argv = malloc(sizeof(char *) * num_of_strings(line));
 	if (argv == NULL)
