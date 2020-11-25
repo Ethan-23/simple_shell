@@ -10,8 +10,15 @@ int num_of_strings(char *line)
 	int delim_count = 0;
 
 	for (i = 0; line[i] != '\0'; i++)
+	{
 		if (line[i] == ' ')
-			delim_count++;
+		{
+			if (line[i + 1] == ' ')
+				line[i] = '\0';
+			else
+				delim_count++;
+		}
+	}
 	/*adds two: one for NULL at end*/
 	/*adds another for the first argument no matter what*/
 	return (delim_count + 2);
