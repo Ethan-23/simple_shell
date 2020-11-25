@@ -7,16 +7,23 @@
 int num_of_strings(char *line)
 {
 	size_t i = 0;
-	int delim_count = 0;
+	int delim_count = 0, of = 0;
 
 	for (i = 0; line[i] != '\0'; i++)
 	{
+		if ((line[i] >= 'a' && line[i] <= 'z') || (line[i] >= 'A' && line[i] <= 'Z'))
+			of = 1;
+		if (line[i + 1] == ' ')
+		{
+			if (of == 1)
+			{
+			line[i + 1] = '\0';
+			break;
+			}
+		}
 		if (line[i] == ' ')
 		{
-			if (line[i + 1] == ' ')
-				line[i] = '\0';
-			else
-				delim_count++;
+			delim_count++;
 		}
 	}
 	/*adds two: one for NULL at end*/
@@ -57,8 +64,10 @@ char **set_argv(char *line)
 	i -= 1;
 	/*removes the /n and replaces it with new NULL byte*/
 	for (j = 0; argv[i][j] != '\0'; j++)
+	{
 		if (argv[i][j] == '\n')
 			argv[i][j] = '\0';
+	}
 	/*goes back to last index of argv and sets it to NULL*/
 	argv[i + 1] = NULL;
 	return (argv);
