@@ -89,7 +89,7 @@ int main(int ac, char **av, char **env)
 			s_free(argv, path, line, NULL);
 			if (error == 127)
 				exit(2);
-			exit(2);
+			exit(EXIT_SUCCESS);
 		}
 		if (_strcmp(argv[0], "env") == 0)
 			print_env(env);
