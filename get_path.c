@@ -44,7 +44,7 @@ char **get_path(char **env)
 	for (i = 0; env[i] != '\0'; i++)
 	{
 		next = strtok(env[i], "\n");
-		if (_strcmp(next, "PATH=") == 0)
+		if (_strcmp(next, "PATH") == 0)
 		{
 			hold = i;
 			break;
