@@ -17,7 +17,6 @@ int num_of_strings(char *line)
 		{
 			if (of == 1)
 			{
-				printf("Stopped");
 				line[i + 1] = '\0';
 				break;
 			}
