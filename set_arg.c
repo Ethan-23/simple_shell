@@ -13,12 +13,13 @@ int num_of_strings(char *line)
 	{
 		if ((line[i] >= 'a' && line[i] <= 'z') || (line[i] >= 'A' && line[i] <= 'Z'))
 			of = 1;
-		if (line[i + 1] == ' ')
+		if (line[i] == ' ' && line[i + 1] == ' ')
 		{
 			if (of == 1)
 			{
-			line[i + 1] = '\0';
-			break;
+				printf("Stopped");
+				line[i + 1] = '\0';
+				break;
 			}
 		}
 		if (line[i] == ' ')
