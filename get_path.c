@@ -8,6 +8,7 @@ int num_of_s(char *line)
 {
 	int i = 0;
 	int delim_count = 0;
+
 	for (i = 0; line[i] != '\0'; i++)
 		if (line[i] == ':')
 			delim_count++;

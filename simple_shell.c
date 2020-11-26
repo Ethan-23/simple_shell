@@ -10,16 +10,16 @@ void handler(int a)
 }
 /**
  *print_e - prints current error using perror function (if fork fails)
- *@name: name of shell
  *@input: command input
  *@count: count of how many commands have been entered
+ *Return: 0
  */
 int print_e(char *input, int count)
 {
 	char *buf;
 	char *num = _strnum(count);
 	char delim[3] = ": ", name[6] = "./hsh", er[11] = "not found\n";
-	int lgt =_strlen(num);
+	int lgt = _strlen(num);
 /*makes space with malloc for a string to print errors*/
 	buf = malloc((lgt + _strlen(input) + 23) * sizeof(char));
 	_strcpy(buf, name);
@@ -39,6 +39,9 @@ int print_e(char *input, int count)
  *s_free - this function frees our two allocated strings line and free
  *@line: the line taken from stdin
  *@argv: our allocated argument list
+ *@true_path: true path
+ *@path: path
+ * Return: 0
  */
 void s_free(char **argv, char **path, char *line, char *true_path)
 {
@@ -66,8 +69,8 @@ int main(int ac, char **av, char **env)
 	char *line = NULL, *true_path, **path, **argv;
 	int num_char_line, id = 1, count = 0, error = 0;
 	size_t buf = 0;
-	(void)ac;
 	(void)av;
+	(void)ac;
 	/*our signal handler / path retrieving function*/
 	signal(SIGINT, handler);
 	path = get_path(env);

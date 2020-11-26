@@ -32,9 +32,10 @@ char *command_path(char *com, char *path)
 	return (new);
 }
 /**
- *handle_path - this function determines whether the command entered exists
- *@env: our environmental variables
+ * handle_path - this function determines whether the command entered exists
+ *@path: our environmental variables
  *@argv: our argument lis (exp.(ls -a -b))
+ *Return: 0
  */
 void *handle_path(char **path, char **argv)
 {
@@ -50,12 +51,12 @@ void *handle_path(char **path, char **argv)
 		return (true_p);
 	}
 	for (j = 0; path[j] != '\0'; j++)
-                lgt++;
-        copy = malloc((lgt + 1) * sizeof(char *));
-        if (copy == NULL)
-                return (NULL);
-        for (j = 0; path[j] != '\0'; j++)
-                copy[j] = path[j];
+		lgt++;
+	copy = malloc((lgt + 1) * sizeof(char *));
+	if (copy == NULL)
+		return (NULL);
+	for (j = 0; path[j] != '\0'; j++)
+		copy[j] = path[j];
 	copy[j] = NULL;
 	for (i = 0; copy[i] != '\0'; i++)
 	{

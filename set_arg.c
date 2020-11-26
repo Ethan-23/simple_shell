@@ -44,6 +44,7 @@ char **set_argv(char *line)
 	char **argv;
 	/*counter variables*/
 	int i = 0, j = 0;
+
 	if (line == NULL)
 		return (NULL);
 	/*mallocs our argv list based on how many args passed to shell*/
